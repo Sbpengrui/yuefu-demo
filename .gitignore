@@ -1,0 +1,11 @@
+# 忽略class文件
+*.class
+*.classpath
+*.project
+*.zip
+
+# 过滤文件夹
+.git/
+.idea/
+FreeMarker_2.3.23_Manual_zh_CN/
+.settings/
