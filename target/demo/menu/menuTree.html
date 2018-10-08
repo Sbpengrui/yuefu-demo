@@ -1,0 +1,139 @@
+<div id="menuTree-tb">
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addMenu()">新建菜单</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:alert('remove')">删除菜单</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:alert('edit')">编辑菜单</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-expand-all" plain="true" onclick="expandAll('menuTree')">展开所有</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-collapse-all" plain="true" onclick="collapseAll('menuTree')">关闭所有</a>
+</div>
+<ul id="menuTree" class="easyui-tree" data-options="fit:true,animate:true" toolbar="#menuTree-tb">
+	<!--<li>
+		<span>Folder</span>
+		<ul>
+			<li>
+				<span>Sub Folder 1</span>
+				<ul>
+					<li><span>File 11</span></li>
+					<li><span>File 12</span></li>
+					<li><span>File 13</span></li>
+				</ul>
+			</li>
+			<li><span>File 2</span></li>
+			<li><span>File 3</span></li>
+		</ul>
+	</li>
+	<li><span>File21</span></li>-->
+</ul>
+
+<div id="menu-modal" class="easyui-window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width: 400px; height: 320px; padding: 10px 20px" closed="true" buttons="#menu-modal-buttons">
+	<div class="ftitle" style="text-align: center;"></div>
+	<form id="menu-form" method="post" style="font-size: 15px;">
+		<table>
+			<tr>
+				<td>菜单名称:</td>
+				<td><input type="text" name="name" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>级别:</td>
+				<td><input type="text" name="address" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>父级菜单:</td>
+				<td>
+					<select id="menu-combotree" class="easyui-combotree" name="parentId" style="width:205px;" />
+				</td>
+			</tr>
+			<tr>
+				<td>是否向服务器:</td>
+				<td><input type="text" name="address" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>链接:</td>
+				<td><input type="text" name="address" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>图标:</td>
+				<td><input type="text" name="address" style="width:200px;" /></td>
+			</tr>
+			<tr>
+				<td>是否启用:</td>
+				<td>
+					<div style="background:#fafafa;width:200px;border:1px solid #ccc">
+						<a id="enable" href="#" style="width: 200px;" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">Edit</a>
+					</div>
+					<div id="mm1" style="width:200px;">
+						<div iconCls="icon-ok">启用</div>
+						<div iconCls="icon-delete">禁用</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<div id="menu-modal-buttons" style="text-align: right;margin-top: 20px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#menu-modal').window('close')">Cancel</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$('#menuTree').tree({
+			url: "/demo/menu/getMenuTree",
+			checkbox: true,
+			loadFilter: function(rows) {
+				return convert(rows);
+			}
+		});
+
+	});
+
+	function exists(rows, parentId) {
+		for(var i = 0; i < rows.length; i++) {
+			if(rows[i].id == parentId) return true;
+		}
+		return false;
+	}
+
+	function convert(rows) {
+
+		var nodes = []; // get the top level nodes
+		for(var i = 0; i < rows.length; i++) {
+			var row = rows[i];
+			if(!exists(rows, row.parentId)) {
+				row.icon = row.icon == null ? 'icon-add' : row.icon;
+				nodes.push({
+					id: row.id,
+					text: row.menuName,
+					state: 'open',
+					children: [],
+					iconCls: row.icon
+				});
+			}
+		}
+
+		var toDo = [];
+		for(var i = 0; i < nodes.length; i++) {
+			toDo.push(nodes[i]);
+		}
+		while(toDo.length) {
+			var node = toDo.shift(); // the parent node
+			// get the children nodes
+			for(var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+				if(row.parentId == node.id) {
+					row.icon = row.icon == null ? 'icon-add' : row.icon;
+					var child = {
+						id: row.id,
+						text: row.menuName,
+						iconCls: row.icon
+					};
+					if(node.children) {
+						node.children.push(child);
+					} else {
+						node.children = [child];
+					}
+					toDo.push(child);
+				}
+			}
+		}
+		return nodes;
+	}
+</script>

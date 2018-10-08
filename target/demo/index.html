@@ -1,0 +1,59 @@
+<table id="dg" data-options="border:false,fit:true" title="My Users" class="easyui-datagrid" url="/demo/user/getUserList" toolbar="#toolbar" rownumbers="true" fitColumns="true" pagination="true" remoteSort="true" idField="id">
+	<thead>
+		<tr>
+			<th rowspan="2" field="ck" checkbox="true"></th>
+			<th field="id" hidden="true" width="50" rowspan="2">Id</th>
+			<th field="user_id" width="50" sortable="true" rowspan="2">User ID</th>
+			<th field="first_name" width="50" sortable="true" rowspan="2">First Name</th>
+			<th field="last_name" width="50" rowspan="2">Last Name</th>
+			<th colspan="2">UserInfo</th>
+		</tr>
+		<tr>
+			<th field="phone" width="50" sortable="true">Phone</th>
+			<th field="email" width="50">Email</th>
+		</tr>
+	</thead>
+</table>
+<div id="toolbar">
+	<span>First Name:</span>
+	<input id="first_name" style="line-height:26px;border:1px solid #ccc">
+	<span>Last Name:</span>
+	<input id="last_name" style="line-height:26px;border:1px solid #ccc">
+	<span>Date From: </span>
+	<input class="easyui-datebox" style="line-height:26px;border:1px solid #ccc" "> 
+			<span>To:</span>
+			<input class="easyui-datebox " style="line-height:26px;border:1px solid #ccc "">
+	<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">Search</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+</div>
+
+<div id="dlg" class="easyui-window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width: 400px; height: 280px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+	<div class="ftitle" style="text-align: center;">User Information</div>
+	<form id="fm" method="post">
+		<div class="fitem">
+			<input id="id" name="id" hidden="hidden">
+		</div>
+		<div class="fitem" id="user_id_div">
+			<label style="width:100px;display:inline-block;">User:</label>
+			<select id="user_id" style="width: 169px;"></select>
+		</div>
+		<div class="fitem">
+			<label style="width:100px;display:inline-block;">First Name:</label> <input name="first_name" class="easyui-validatebox" required="true">
+		</div>
+		<div class="fitem">
+			<label style="width:100px;display:inline-block;">Last Name:</label> <input name="last_name" class="easyui-validatebox" required="true">
+		</div>
+		<div class="fitem">
+			<label style="width:100px;display:inline-block;">Phone:</label> <input name="phone" class="easyui-validatebox" validType="mobile">
+		</div>
+		<div class="fitem">
+			<label style="width:100px;display:inline-block;">Email:</label> <input name="email" class="easyui-validatebox" validType="email">
+		</div>
+	</form>
+	<div id="dlg-buttons" style="text-align: center;margin-top: 20px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').window('close')">Cancel</a>
+	</div>
+</div>

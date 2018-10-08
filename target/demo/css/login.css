@@ -1,0 +1,110 @@
+html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-style: sans-serif;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	background: url(../img/background.jpg) no-repeat;
+}
+
+#login {
+	position: absolute;
+	top: 20%;
+	left: 65%;
+	margin: 0 auto;
+	height: 400px;
+}
+.login_form li .icon{
+	width: 30px;
+	height: 30px;
+	margin-top: 5px;
+	float: left;
+}
+#login h1 {
+	color: #000000;
+	text-shadow: 0 0 10px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+
+input:-webkit-autofill {
+background-color: red;
+background-image: none;
+color: #000;
+}
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+input {
+	width: 250px;
+	height: 18px;
+	outline: none;
+	padding: 10px 10px 10px 10px;
+	font-size: 14px;
+	background-color: transparent;
+	border: none;
+}
+
+.but {
+	width: 300px;
+	min-height: 20px;
+	display: block;
+	background-color: #4a77d4;
+	border: 1px solid #3762bc;
+	color: #fff;
+	padding: 9px 14px;
+	font-size: 15px;
+	line-height: normal;
+	border-radius: 5px;
+	margin: 0;
+}
+
+ul li {
+	list-style-type: none;
+	margin-bottom: 20px;
+	border: 1px solid #fff;
+	border-radius: 4px;
+}
+
+img {
+	text-align: center;
+}
+
+li span {
+	position: absolute;
+	left: 16px;
+	top: 1px;
+	width: 38px;
+	height: 38px;
+	display: inline-block;
+}
+
+.icon-user-name {
+	background: url(../jquery-easyui-1.6.2/themes/icons/user.png);
+	/*设置小图标*/
+	background-size: 25px 25px;
+	/*小图标的大小*/
+	background-position: 5px 4px;
+	/*小图标在input的位置*/
+	background-repeat: no-repeat;
+	/*背景小图标不重复*/
+}
+
+.icon-password {
+	background: url(../jquery-easyui-1.6.2/themes/icons/lock_key.png);
+	/*设置小图标*/
+	background-size: 25px 25px;
+	/*小图标的大小*/
+	background-position: 5px 4px;
+	/*小图标在input的位置*/
+	background-repeat: no-repeat;
+	/*背景小图标不重复*/
+}

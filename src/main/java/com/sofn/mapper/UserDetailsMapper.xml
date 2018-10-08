@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sofn.dao.IUserDetailsDao">
+	<resultMap id="BaseResultMap" type="com.sofn.entity.UserDetails">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, first_name, last_name, phone, email
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_details
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		user_details
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.sofn.entity.UserDetails">
+		insert into user_details
+		(user_id,
+		first_name,
+		last_name, phone, email) values
+		(#{userId,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR},
+		#{lastName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sofn.entity.UserDetails">
+		insert into user_details
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="firstName != null">
+				first_name,
+			</if>
+			<if test="lastName != null">
+				last_name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="firstName != null">
+				#{firstName,jdbcType=VARCHAR},
+			</if>
+			<if test="lastName != null">
+				#{lastName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sofn.entity.UserDetails">
+		update user_details
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="firstName != null">
+				first_name = #{firstName,jdbcType=VARCHAR},
+			</if>
+			<if test="lastName != null">
+				last_name = #{lastName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sofn.entity.UserDetails">
+		update
+		user_details
+		set user_id = #{userId,jdbcType=INTEGER},
+		first_name =
+		#{firstName,jdbcType=VARCHAR},
+		last_name =
+		#{lastName,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteUsersByIds" parameterType="int[]">
+		delete from user_details where id in
+		<foreach collection="array" index="no" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="list" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select * from user_details
+		<if test="offset != null and pageSize != null">
+			limit #{offset} , #{pageSize}
+		</if>
+
+	</select>
+
+	<select id="listCount" resultType="java.lang.Long">
+		select count(*) from
+		user_details
+	</select>
+</mapper>
