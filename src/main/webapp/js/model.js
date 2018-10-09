@@ -247,7 +247,7 @@ function logout() {
 
 	$.ajax({
 		type: "post",
-		url: "/demo/user/logout",
+		url: "/demo/login/logout",
 		dataType: "json",
 		success: function(result) {
 			if(result.HttpCode == 'OK') {

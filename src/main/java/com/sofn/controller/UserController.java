@@ -23,7 +23,7 @@ import com.sofn.util.HttpCode;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
 	@Autowired
 	private IUserService userService;
@@ -45,37 +45,6 @@ public class UserController extends BaseController{
 			return "/index";
 		else {
 			return "/login";
-		}
-	}
-	@RequestMapping("/logout")
-	@ResponseBody
-	public Object logout(){
-		session.removeAttribute("user");
-		session.removeAttribute("valicode");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("HttpCode", HttpCode.OK);
-		map.put("msg", HttpCode.OK.msg());
-		return map;
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(User model, String valicode ,HttpSession session) {
-		if(StringUtils.isEmpty(valicode) || model == null){
-			return setModelAndView("redirect:/login.jsp");
-		}
-		String code = (String)session.getAttribute("valicode");
-		if(!valicode.toLowerCase().equals(code.toLowerCase())){
-			return setModelAndView("redirect:/login.jsp");
-		}
-		
-		User user = userService.getUserByName(model.getUserName());
-		
-		
-		if (user == null || !user.getPassword().equals(model.getPassword())) {
-			return setModelAndView("redirect:/login.jsp");
-		} else {
-			session.setAttribute("user", user);
-			return setModelAndView("model");
 		}
 	}
 

@@ -13,7 +13,7 @@
 
 		<div id="login">
 			<h1>Login</h1>
-			<form method="post" action="user/login" class="login_form">
+			<form method="post" action="login/login" class="login_form">
 				<ul>
 					<li>
 						<img class="icon" src="./jquery-easyui-1.6.2/themes/icons/user.png" alt="" />
@@ -30,6 +30,9 @@
 					<li>
 						<button class="but" type="submit">登录</button>
 					</li>
+					
+						<p style="color: red;font-size: 14px;font-weight: bold;">${msg}</p>
+
 				</ul>
 
 			</form>
