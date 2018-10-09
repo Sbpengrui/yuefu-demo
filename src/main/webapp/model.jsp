@@ -5,6 +5,7 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		 <link rel="icon" href="${pageContext.request.contextPath}/img/logo.ico" type="img/x-ico" />
 		<title>easyui基本框架搭建</title>
 		<!-- 引入EasyUI的样式文件-->
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery-easyui-1.6.2/themes/default/easyui.css" type="text/css" />
